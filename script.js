@@ -1,3 +1,5 @@
+AOS.init();
+
 document.addEventListener("DOMContentLoaded", () => {
   const glassyCircle = document.querySelector(".glassy-circle");
   const canvas = document.querySelector("canvas");
@@ -25,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const params = {
     pointsNumber: 15,
     widthFactor: 20,
-    spring: 0.3,
+    spring: 0.2,
     friction: 0.5,
   };
   const trail = new Array(params.pointsNumber).fill().map(() => ({
@@ -66,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ✅ 초록색 네온 효과 (빛 번짐)
     ctx.shadowColor = "#00ff66";
-    ctx.shadowBlur = 20;
+    ctx.shadowBlur = 30;
     ctx.strokeStyle = "#00ff66";
     ctx.lineCap = "round";
     ctx.beginPath();
@@ -91,24 +93,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("DOMContentLoaded", () => {
   const section2 = document.querySelector(".section2");
+  const section3 = document.querySelector(".section3");
   const circle = document.querySelector(".circle");
   const textStep1 = document.querySelector(".text-step-1");
   const textStep2 = document.querySelector(".text-step-2");
-  const highlightH1 = document.querySelector(".highlight-word.h1");
-  const highlightH2 = document.querySelector(".highlight-word.h2");
 
   window.addEventListener("scroll", () => {
     const scrollTop = window.scrollY;
     const sectionTop = section2.offsetTop;
     const sectionHeight = section2.offsetHeight;
-    let progress = (scrollTop - sectionTop + 300) / sectionHeight;
+    let progress = (scrollTop - sectionTop) / sectionHeight;
     progress = Math.max(0, Math.min(progress, 1));
+
+    const sectionTop3 = section3.offsetTop;
+    const sectionHeight3 = section3.offsetHeight;
+    let progress3 = (scrollTop3 - sectionTop3) / sectionHeight3;
+    progress3 = Math.max(0, Math.min(progress3, 1)); // ✅ 여기 오타 수정
+
+    // ✅ 화면의 절반 정도 스크롤 시 색상 변경
+    if (progress3 >= 0.5) {
+      textStep2.style.color = "#00ff66";
+    } else {
+      textStep2.style.color = "#fff";
+    }
 
     // 1️⃣ 2섹션 진입 시 Step1 보이기
     if (progress > 0 && progress < 0.2) {
       textStep1.style.opacity = 1;
       circle.style.opacity = 1;
-      textStep2.style.opacity = 0;
+    } else if (progress < 0.2) {
+      textStep1.style.opacity = 0;
+      circle.style.opacity = 0;
     }
 
     // 2️⃣ 원 확대 + Step1 사라짐
@@ -127,26 +142,15 @@ document.addEventListener("DOMContentLoaded", () => {
     // 3️⃣ 배경 전환
     if (progress < 0.45) {
       section2.style.background = "#fff";
-    } else if (progress >= 0.45 && progress < 0.6) {
+    } else if (progress >= 0.45 && progress < 0.5) {
       section2.style.background = "#00ff66";
     } else {
-      section2.style.background = "#000";
+      section2.style.background = "#0134FF";
     }
 
     // 4️⃣ 검정 배경에서 Step2 등장
-    if (progress >= 0.6 && progress < 0.8) {
-      textStep2.style.opacity = 1;
-      highlightH1.style.color = "#fff";
-      highlightH2.style.color = "#fff";
+    if (progress >= 0.5 && progress < 0.6) {
       circle.style.opacity = 0;
-    } else if (progress < 0.6) {
-      textStep2.style.opacity = 0;
-    }
-
-    // 5️⃣ 마지막 포인트 단어 강조
-    if (progress >= 0.8) {
-      highlightH1.style.color = "#00ff66";
-      highlightH2.style.color = "#00ff66";
     }
   });
 });
