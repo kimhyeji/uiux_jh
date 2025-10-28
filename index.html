@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LOOPYIT 브랜드 소개</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <!-- ✅ 섹션 1 : 메인 -->
+  <section class="main-section">
+    <header>
+      <img src="images/loopyit-logo.png" alt="Loopyit Logo" class="logo" />
+      <img src="images/main-menu.png" alt="Menu" class="menu" />
+    </header>
+
+    <div class="main-content">
+      <img src="images/curve.png" alt="Curve" class="curve curve-left" />
+      <h1>LOOPYIT</h1>
+      <div class="slogan-wrapper">
+        <p class="slogan">
+          One day,<br> one loop,<br> one better you.
+        </p>
+      </div>
+      <img src="images/flower-line.png" alt="Flower Line" class="curve curve-right" />
+    </div>
+  </section>
+
+  <!-- ✅ 섹션 2 : 스크롤 인터랙션 -->
+  <section class="section2">
+    <div class="text-step text-step-1">
+      <p>매일을 더 건강하게,</p>
+      <p>당신만의 맞춤형 AI 서비스</p>
+    </div>
+
+    <div class="circle">
+      <svg class="scroll-arrow" width="70" height="70" viewBox="0 0 24 24">
+        <path 
+          d="M12 3v16m0 0l-5-5m5 5l5-5"
+          stroke="#fff" stroke-width="2.4"
+          stroke-linecap="round" stroke-linejoin="round"
+          fill="none"
+        />
+      </svg>
+    </div>
+
+    <div class="text-step text-step-2">
+      <p class="line1">
+        하루의 <span class="highlight-word h1">작은</span> 습관이
+        <span class="highlight-word h2">큰</span> 변화를 만듭니다
+      </p>
+      <p class="line2">당신만을 위한 루틴을 설계해 드려요</p>
+    </div>
+  </section>
+
+  <!-- ✅ 마우스 따라다니는 블러 효과 -->
+  <div class="glassy-circle"></div>
+
+  <!-- ✅ 마우스 트레일 효과 -->
+  <canvas></canvas>
+
+  
+</body>
+
+</html>
+

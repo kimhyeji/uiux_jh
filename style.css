@@ -1,0 +1,198 @@
+/* -------------------------------
+   기본 세팅
+--------------------------------*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Pretendard", sans-serif;
+  background: #fff;
+  overflow-x: hidden;
+}
+
+/* -------------------------------
+   마우스 따라다니는 블러 원
+--------------------------------*/
+.glassy-circle {
+  position: fixed;
+  top: 0;
+  left: 0;
+  backdrop-filter: blur(50px);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 50;
+  mix-blend-mode: lighten;
+  opacity: 0.6;
+  transition: transform 0.05s ease;
+}
+
+/* -------------------------------
+   Canvas
+--------------------------------*/
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* -------------------------------
+   섹션 1 (메인)
+--------------------------------*/
+.main-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: #fff;
+  overflow: hidden;
+}
+
+header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  z-index: 10;
+  background: transparent;
+}
+
+.logo { width: 65px; }
+.menu { width: 50px; }
+
+.main-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 50px;
+  z-index: 5;
+}
+
+.main-content h1 {
+  font-size: 27rem;
+  font-weight: 600;
+  color: #000;
+  margin-top: 7vh;
+  z-index: 5;
+}
+
+.slogan {
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 1.6;
+  text-align: center;
+  position: relative;
+  padding: 0 12rem;
+}
+
+.slogan::before,
+.slogan::after {
+  position: absolute;
+  top: 0;
+  font-size: 8rem;
+  font-weight: 400;
+  line-height: 1.1;
+  color: #000;
+}
+
+.slogan::before { content: "("; left: 0; }
+.slogan::after { content: ")"; right: 0; }
+
+.curve { position: absolute; z-index: 1; }
+.curve-left { top: -400px; left: -280px; width: 46vw; transform: rotate(50deg); }
+.curve-right { bottom: -100px; right: -130px; width: 33vw; }
+
+/* -------------------------------
+   섹션 2 (스크롤 인터랙션)
+--------------------------------*/
+.section2 {
+  position: relative;
+  width: 100%;
+  height: 250vh;
+  background: #fff;
+  overflow: hidden;
+  transition: background 1s ease;
+  z-index: 0;
+}
+
+.text-step {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  text-align: center;
+  transform: translateX(-50%);
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.text-step-1 {
+  top: 500px;
+  font-size: 4rem;
+  font-weight: 700;
+  color: #000;
+}
+
+.text-step-2 {
+  top: 35%;
+  font-size: 4.8rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.8;
+  width: 80%;
+  max-width: 1600px;
+  z-index: 3;
+}
+
+/* 원 */
+.circle {
+  position: absolute;
+  top: 800px;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  background: #00ff66;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 0;
+  z-index: 2;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+/* 화살표 */
+.scroll-arrow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 1;
+  animation: arrowBounce 1.8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 5;
+}
+
+@keyframes arrowBounce {
+  0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+  50% { transform: translate(-50%, -50%) translateY(10px); }
+}
+
+/* 포인트 단어 */
+.highlight-word {
+  transition: color 0.6s ease;
+  color: #fff;
+}
+
+.highlight-word.active {
+  color: #00ff66;
+}
+
