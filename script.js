@@ -5,7 +5,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ✅ 마우스 따라다니는 블러 원
   window.addEventListener("mousemove", (e) => {
-    glassyCircle.style.transform = `translate(${e.clientX - 100}px, ${e.clientY - 100}px)`;
+    glassyCircle.style.transform = `translate(${e.clientX - 100}px, ${
+      e.clientY - 100
+    }px)`;
   });
 
   // ✅ 캔버스 기본 설정
@@ -21,9 +23,9 @@ document.addEventListener("DOMContentLoaded", () => {
   let mouseMoved = false;
   const pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
   const params = {
-    pointsNumber: 50,
+    pointsNumber: 15,
     widthFactor: 20,
-    spring: 0.2,
+    spring: 0.3,
     friction: 0.5,
   };
   const trail = new Array(params.pointsNumber).fill().map(() => ({
@@ -42,9 +44,11 @@ document.addEventListener("DOMContentLoaded", () => {
   function update(t) {
     if (!mouseMoved) {
       pointer.x =
-        (0.5 + 0.3 * Math.cos(0.002 * t) * Math.sin(0.005 * t)) * window.innerWidth;
+        (0.5 + 0.3 * Math.cos(0.002 * t) * Math.sin(0.005 * t)) *
+        window.innerWidth;
       pointer.y =
-        (0.5 + 0.2 * Math.cos(0.005 * t) + 0.1 * Math.sin(0.01 * t)) * window.innerHeight;
+        (0.5 + 0.2 * Math.cos(0.005 * t) + 0.1 * Math.sin(0.01 * t)) *
+        window.innerHeight;
     }
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -62,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ✅ 초록색 네온 효과 (빛 번짐)
     ctx.shadowColor = "#00ff66";
-    ctx.shadowBlur = 60;
+    ctx.shadowBlur = 20;
     ctx.strokeStyle = "#00ff66";
     ctx.lineCap = "round";
     ctx.beginPath();
@@ -97,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const scrollTop = window.scrollY;
     const sectionTop = section2.offsetTop;
     const sectionHeight = section2.offsetHeight;
-    let progress = (scrollTop - sectionTop) / sectionHeight;
+    let progress = (scrollTop - sectionTop + 300) / sectionHeight;
     progress = Math.max(0, Math.min(progress, 1));
 
     // 1️⃣ 2섹션 진입 시 Step1 보이기
@@ -112,9 +116,11 @@ document.addEventListener("DOMContentLoaded", () => {
       textStep1.style.opacity = 0;
       circle.style.opacity = 1;
       const initialSize = 90;
-      const screenDiagonal = Math.sqrt(window.innerWidth ** 2 + window.innerHeight ** 2);
+      const screenDiagonal = Math.sqrt(
+        window.innerWidth ** 2 + window.innerHeight ** 2
+      );
       const maxScale = screenDiagonal / initialSize;
-      const scale = 1 + (progress - 0.2) / 0.25 * (maxScale - 1);
+      const scale = 1 + ((progress - 0.2) / 0.25) * (maxScale - 1);
       circle.style.transform = `translate(-50%, -50%) scale(${scale})`;
     }
 
@@ -144,6 +150,3 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
-
-
-
