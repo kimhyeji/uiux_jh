@@ -213,9 +213,8 @@ header {
 
 /* 섹션 3 */
 .section3 {
-  background-color: #0134ff;
+  background-color: #000;
   height: 100vh;
-  border: 1px solid red;
 }
 
 .text-step-2 {

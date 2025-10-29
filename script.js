@@ -1,25 +1,25 @@
 AOS.init();
 
-document.addEventListener("DOMContentLoaded", () => {
-  const glassyCircle = document.querySelector(".glassy-circle");
-  const canvas = document.querySelector("canvas");
-  const ctx = canvas.getContext("2d");
+$(document).ready(function () {
+  const $glassyCircle = $(".glassy-circle");
+  const $canvas = $("canvas");
+  const ctx = $canvas[0].getContext("2d");
 
   // ✅ 마우스 따라다니는 블러 원
-  window.addEventListener("mousemove", (e) => {
-    glassyCircle.style.transform = `translate(${e.clientX - 100}px, ${
-      e.clientY - 100
-    }px)`;
+  $(window).on("mousemove", function (e) {
+    $glassyCircle.css(
+      "transform",
+      `translate(${e.clientX - 100}px, ${e.clientY - 100}px)`
+    );
   });
 
   // ✅ 캔버스 기본 설정
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  window.addEventListener("resize", () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  });
+  function resizeCanvas() {
+    $canvas[0].width = window.innerWidth;
+    $canvas[0].height = window.innerHeight;
+  }
+  resizeCanvas();
+  $(window).on("resize", resizeCanvas);
 
   // ✅ 마우스 따라다니는 네온 초록색 트레일 효과
   let mouseMoved = false;
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
     dy: 0,
   }));
 
-  window.addEventListener("mousemove", (e) => {
+  $(window).on("mousemove", function (e) {
     mouseMoved = true;
     pointer.x = e.clientX;
     pointer.y = e.clientY;
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
         window.innerHeight;
     }
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, $canvas[0].width, $canvas[0].height);
 
     trail.forEach((p, i) => {
       const prev = i === 0 ? pointer : trail[i - 1];
@@ -89,68 +89,67 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   update(0);
-});
 
-document.addEventListener("DOMContentLoaded", () => {
-  const section2 = document.querySelector(".section2");
-  const section3 = document.querySelector(".section3");
-  const circle = document.querySelector(".circle");
-  const textStep1 = document.querySelector(".text-step-1");
-  const textStep2 = document.querySelector(".text-step-2");
+  // ✅ 섹션 애니메이션 관련
+  const $section2 = $(".section2");
+  const $section3 = $(".section3");
+  const $circle = $(".circle");
+  const $textStep1 = $(".text-step-1");
+  const $textStep2Hw = $(".highlight-word");
 
-  window.addEventListener("scroll", () => {
-    const scrollTop = window.scrollY;
-    const sectionTop = section2.offsetTop;
-    const sectionHeight = section2.offsetHeight;
+  $(window).on("scroll", function () {
+    const scrollTop = $(window).scrollTop();
+    const sectionTop = $section2.offset().top;
+    const sectionHeight = $section2.outerHeight();
     let progress = (scrollTop - sectionTop) / sectionHeight;
     progress = Math.max(0, Math.min(progress, 1));
 
-    const sectionTop3 = section3.offsetTop;
-    const sectionHeight3 = section3.offsetHeight;
-    let progress3 = (scrollTop3 - sectionTop3) / sectionHeight3;
-    progress3 = Math.max(0, Math.min(progress3, 1)); // ✅ 여기 오타 수정
+    const sectionTop3 = $section3.offset().top;
+    const sectionHeight3 = $section3.outerHeight();
+    let progress3 = (scrollTop - sectionTop3) / sectionHeight3;
+    progress3 = Math.max(0, Math.min(progress3, 1));
 
     // ✅ 화면의 절반 정도 스크롤 시 색상 변경
-    if (progress3 >= 0.5) {
-      textStep2.style.color = "#00ff66";
-    } else {
-      textStep2.style.color = "#fff";
-    }
+    // if (progress3 >= 0.15) {
+    //   $textStep2Hw.css("color", "#00ff66");
+    // } else {
+    //   $textStep2Hw.css("color", "#fff");
+    // }
 
     // 1️⃣ 2섹션 진입 시 Step1 보이기
     if (progress > 0 && progress < 0.2) {
-      textStep1.style.opacity = 1;
-      circle.style.opacity = 1;
+      $textStep1.css("opacity", 1);
+      $circle.css("opacity", 1);
     } else if (progress < 0.2) {
-      textStep1.style.opacity = 0;
-      circle.style.opacity = 0;
+      $textStep1.css("opacity", 0);
+      $circle.css("opacity", 0);
     }
 
     // 2️⃣ 원 확대 + Step1 사라짐
     if (progress >= 0.2 && progress < 0.45) {
-      textStep1.style.opacity = 0;
-      circle.style.opacity = 1;
+      $textStep1.css("opacity", 0);
+      $circle.css("opacity", 1);
       const initialSize = 90;
       const screenDiagonal = Math.sqrt(
         window.innerWidth ** 2 + window.innerHeight ** 2
       );
       const maxScale = screenDiagonal / initialSize;
       const scale = 1 + ((progress - 0.2) / 0.25) * (maxScale - 1);
-      circle.style.transform = `translate(-50%, -50%) scale(${scale})`;
+      $circle.css("transform", `translate(-50%, -50%) scale(${scale})`);
     }
 
     // 3️⃣ 배경 전환
     if (progress < 0.45) {
-      section2.style.background = "#fff";
+      $section2.css("background", "#fff");
     } else if (progress >= 0.45 && progress < 0.5) {
-      section2.style.background = "#00ff66";
+      $section2.css("background", "#00ff66");
     } else {
-      section2.style.background = "#0134FF";
+      $section2.css("background", "#000");
     }
 
     // 4️⃣ 검정 배경에서 Step2 등장
     if (progress >= 0.5 && progress < 0.6) {
-      circle.style.opacity = 0;
+      $circle.css("opacity", 0);
     }
   });
 });
